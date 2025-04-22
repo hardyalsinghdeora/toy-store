@@ -1,0 +1,13 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#ecfdf5"/>
+  <text x="50%" y="50%" font-family="Arial" font-size="24" fill="#059669" text-anchor="middle">
+    Outdoor Toys
+  </text>
+  <!-- Ball -->
+  <circle cx="180" cy="200" r="30" fill="#059669"/>
+  <path d="M 160 185 Q 180 165, 200 185 M 160 215 Q 180 235, 200 215" stroke="#ecfdf5" fill="none" stroke-width="3"/>
+  <!-- Kite -->
+  <path d="M 250 150 L 280 180 L 250 210 L 220 180 Z" fill="#059669"/>
+  <path d="M 250 210 L 260 240 L 270 260" stroke="#059669" fill="none" stroke-width="2"/>
+  <path d="M 260 240 L 240 250" stroke="#059669" fill="none" stroke-width="2"/>
+</svg> 

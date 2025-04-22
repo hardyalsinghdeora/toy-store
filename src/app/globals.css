@@ -1,26 +1,195 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary-color: #f11837;
+    --secondary-color: #ff6408;
+    --accent-color: #fcae01;
+    --success-color: #56b621;
+    --info-color: #27ca80;
+    --link-color: #1a8de6;
+    --dark-color: #282828;
+    --light-color: #f9f9f9;
+    --text-color: #333333;
+    --text-light: #959595;
+  }
+
+  body {
+    @apply text-text bg-light;
+    font-family: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  input, textarea, select {
+    @apply text-sm;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 px-3 py-2 rounded-md text-sm font-medium transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary/90 px-3 py-2 rounded-md text-sm font-medium transition-colors;
+  }
+  
+  .nav-link {
+    @apply text-text hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors;
+  }
+}
+
+/* Navigation */
+.nav-menu {
+  @apply mt-3;
+}
+
+.navbar-collapse {
+  @apply px-0;
+}
+
+.nav {
+  @apply flex list-none w-full;
+}
+
+.nav li {
+  @apply flex-1 text-center uppercase;
+}
+
+.nav li:first-child a {
+  @apply bg-primary;
+}
+
+.nav li:nth-child(2) a {
+  @apply bg-secondary;
+}
+
+.nav li:nth-child(3) a {
+  @apply bg-accent;
+}
+
+.nav li:nth-child(4) a {
+  @apply bg-success;
+}
+
+.nav li:nth-child(5) a {
+  @apply bg-info;
+}
+
+.nav li:nth-child(6) a {
+  @apply bg-link;
+}
+
+.nav li.current_page_item a,
+.nav li a:hover {
+  @apply opacity-90;
+}
+
+.nav li a {
+  @apply block text-white py-2 px-4 transition-colors;
+}
+
+.sub-menu {
+  @apply absolute hidden bg-white shadow-lg rounded-md mt-1 min-w-[200px];
+}
+
+.sub-menu a {
+  @apply block text-text py-2 px-4 hover:bg-light;
+}
+
+.sub-menu a:hover {
+  @apply text-primary;
+}
+
+.nav li:hover .sub-menu {
+  @apply block;
+}
+
+.sub-menu li:hover a {
+  @apply bg-light text-primary;
+}
+
+.welcome_box {
+  @apply bg-primary text-white p-8 rounded-lg shadow-lg;
+}
+
+.welcome_box h1,
+.welcome_box h2 {
+  @apply text-2xl font-bold mb-4;
+}
+
+.product_container {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.products {
+  @apply py-8;
+}
+
+.products h1,
+.products h2 {
+  @apply text-2xl font-bold mb-6 text-text;
+}
+
+.slogan {
+  @apply bg-secondary text-white py-12 text-center;
+}
+
+.slogan h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+.slogan h1 span {
+  @apply text-accent;
+}
+
+.footer {
+  @apply bg-dark text-white py-8 mt-12;
+}
+
+.footer-menu {
+  @apply container mx-auto px-4;
+}
+
+.footer-menu ul {
+  @apply flex flex-wrap justify-center gap-6;
+}
+
+.footer-menu li:first-child {
+  @apply list-none;
+}
+
+.footer-menu li {
+  @apply text-sm;
+}
+
+.icon-bar {
+  @apply fixed right-0 top-1/2 transform -translate-y-1/2 flex flex-col gap-2;
+}
+
+.icon-bar a {
+  @apply bg-dark text-white p-3 rounded-l-lg transition-colors;
+}
+
+.icon-bar a:hover {
+  @apply bg-primary;
+}
+
+.icon-bar .facebook {
+  @apply bg-[#3B5998];
+}
+
+.icon-bar .instagram {
+  @apply bg-[#E4405F];
+}
+
+@media only screen and (max-width: 600px) {
+  .nav li a {
+    @apply py-1 px-2 text-sm;
+  }
+  
+  .main-title {
+    @apply text-xl;
+  }
 }
