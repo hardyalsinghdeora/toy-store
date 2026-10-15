@@ -5,14 +5,12 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 import type { Session } from 'next-auth';
-import { useSession } from 'next-auth/react';
 
 interface UserMenuProps {
   session: Session | null;
 }
 
-export default function UserMenu() {
-  const { data: session } = useSession();
+export default function UserMenu({ session }: UserMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

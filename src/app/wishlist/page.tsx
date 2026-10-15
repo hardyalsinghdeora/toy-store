@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import WishlistItems from '@/app/components/wishlist/WishlistItems'
@@ -11,9 +11,11 @@ export default async function WishlistPage() {
     redirect('/auth/signin')
   }
 
-  const wishlistItems = await prisma.wishlist.findMany({
+  const wishlistItems = await prisma.wishlistItem.findMany({
     where: {
-      userId: session.user.id,
+      wishlist: {
+        userId: session.user.id,
+      },
     },
     include: {
       product: {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
 export async function GET() {
@@ -45,14 +45,14 @@ export async function GET() {
       prisma.product.findMany({
         take: 5,
         orderBy: {
-          orders: {
+          orderItems: {
             _count: 'desc'
           }
         },
         include: {
           _count: {
             select: {
-              orders: true
+              orderItems: true
             }
           }
         }

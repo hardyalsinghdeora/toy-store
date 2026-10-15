@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         name,
         email,
         password: hashPassword(password),
-        role: 'CUSTOMER',
+        role: 'USER',
         // Create an empty cart for the user
         cart: {
           create: {}

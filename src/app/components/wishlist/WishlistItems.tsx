@@ -1,20 +1,27 @@
-import { Wishlist } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { formatCurrency } from '@/lib/utils'
+// import { formatCurrency } from '@/lib/utils'
+
+interface WishlistItem {
+  id: string;
+  wishlistId: string;
+  productId: string;
+}
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  images: string;
+  category: {
+    name: string;
+  };
+}
 
 interface WishlistItemsProps {
-  items: (Wishlist & {
-    product: {
-      id: string
-      name: string
-      price: number
-      images: string[]
-      category: {
-        name: string
-      }
-    }
-  })[]
+  items: (WishlistItem & {
+    product: Product;
+  })[];
 }
 
 export default function WishlistItems({ items }: WishlistItemsProps) {
@@ -27,7 +34,7 @@ export default function WishlistItems({ items }: WishlistItemsProps) {
         >
           <div className="relative h-48">
             <Image
-              src={item.product.images[0]}
+              src={item.product.images.split(',')[0]}
               alt={item.product.name}
               fill
               className="object-cover"
@@ -44,7 +51,7 @@ export default function WishlistItems({ items }: WishlistItemsProps) {
               {item.product.category.name}
             </p>
             <p className="text-xl font-bold mb-4">
-              {formatCurrency(item.product.price)}
+              ${item.product.price.toFixed(2)}
             </p>
             <div className="flex justify-between items-center">
               <button

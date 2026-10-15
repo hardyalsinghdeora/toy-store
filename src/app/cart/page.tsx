@@ -3,9 +3,30 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CartItem, Product } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
+
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  images: string;
+  ageRange?: string | null;
+  brand: string;
+  featured: boolean;
+  createdAt: string;
+  updatedAt: string;
+  categoryId: string;
+}
+
+interface CartItem {
+  id: string;
+  quantity: number;
+  cartId: string;
+  productId: string;
+}
 
 interface CartItemWithProduct extends CartItem {
   product: Product;
