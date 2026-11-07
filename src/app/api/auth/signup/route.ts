@@ -32,7 +32,8 @@ export async function POST(request: Request) {
 
     console.log('Signup request body:', { ...body, password: '***' });
 
-    const { email, password, name, role = 'USER' } = body;
+    // Never trust a client-supplied role: every self-service signup is a USER.
+    const { email, password, name } = body;
 
     // Validate required fields
     if (!email || !password || !name) {
@@ -89,7 +90,7 @@ export async function POST(request: Request) {
         email,
         name,
         password: hashedPassword,
-        role,
+        role: 'USER',
       },
     });
 

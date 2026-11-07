@@ -1,3 +1,11 @@
+# Toy Store (prototype)
+
+> **Status: unmaintained prototype (April 2025). Not deployed, and superseded.**
+> Kept for reference only. Exploitable auth issues were fixed in Nov 2026, but known
+> issues remain: the project does not currently build (TypeScript errors), and
+> `POST /api/orders` still trusts client-supplied item prices when computing totals.
+> Do not deploy it as is.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

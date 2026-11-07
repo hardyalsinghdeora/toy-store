@@ -6,25 +6,30 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email) {
+    if (!email || typeof email !== 'string') {
       return NextResponse.json(
         { message: 'Email is required' },
         { status: 400 }
       );
     }
 
-    // Generate a reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
+    // Same 200 response whether or not the account exists (no user enumeration).
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    // Store the reset token in the database
-    await prisma.user.update({
-      where: { email },
-      data: {
-        resetToken,
-        resetTokenExpiry,
-      },
-    });
+    if (user) {
+      // Generate a reset token
+      const resetToken = crypto.randomBytes(32).toString('hex');
+      const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
+
+      // Store the reset token in the database
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          resetToken,
+          resetTokenExpiry,
+        },
+      });
+    }
 
     // TODO: Send email with reset link
     // For now, we'll just return success
