@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
 // GET /api/products - Retrieve all products
@@ -37,6 +38,9 @@ export async function GET(req: NextRequest) {
 
 // POST /api/products - Create a new product
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     

@@ -1,4 +1,5 @@
-import { NextAuthOptions } from 'next-auth'
+import { NextAuthOptions, getServerSession } from 'next-auth'
+import { NextResponse } from 'next/server'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from './prisma'
 import GoogleProvider from 'next-auth/providers/google'
@@ -70,4 +71,19 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
-} 
+}
+
+/**
+ * Route-handler guard: returns a 401/403 response unless the caller has an
+ * ADMIN session, or null when the request may proceed.
+ */
+export async function requireAdmin(): Promise<NextResponse | null> {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+  if (session.user?.role !== 'ADMIN') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+  return null
+}
